@@ -1,3 +1,276 @@
+# Chung Kevin Modification
+
+There is a unit test error in the server section. That part is commented out.
+I have raised the issue in the original repo, waiting for response.
+
+# Steps Here
+Run following command.
+```bash
+docker compose up -d
+```
+
+Then check the docker process, make sure zally server is running. For UI, we can ignore since it is not working.
+
+After that, we can start sent post request to use api linting. **Change the data section to your swagger json fil**e.
+
+
+```cURL
+curl --location 'localhost:8000/api-violations' \
+--header 'Content-Type: application/json' \
+--data '{
+  "openapi": "3.0.1",
+  "api_definition_string": "openapi: 3.0.2",
+  "info": {
+    "title": "My Spring 3 OPENAPI DEMO APP",
+    "description": "This is a demo app for using swagger 3 openapi",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8083",
+      "description": "Generated server url"
+    }
+  ],
+  "security": [
+    {
+      "globalHeader": []
+    },
+    {
+      "globalBearer": []
+    }
+  ],
+  "paths": {
+    "/users/{id}": {
+      "put": {
+        "tags": [
+          "user-controller"
+        ],
+        "operationId": "updateUserById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "user-controller"
+        ],
+        "operationId": "deleteUserById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": [
+          "user-controller"
+        ],
+        "operationId": "getUsers",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "user-controller"
+        ],
+        "operationId": "createNewUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Address": {
+        "type": "object",
+        "properties": {
+          "street": {
+            "type": "string"
+          },
+          "suite": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "zipcode": {
+            "type": "string"
+          },
+          "geo": {
+            "$ref": "#/components/schemas/Geo"
+          }
+        }
+      },
+      "Company": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "catchPhrase": {
+            "type": "string"
+          },
+          "bs": {
+            "type": "string"
+          }
+        }
+      },
+      "Geo": {
+        "type": "object",
+        "properties": {
+          "lat": {
+            "type": "string"
+          },
+          "lng": {
+            "type": "string"
+          }
+        }
+      },
+      "User": {
+        "required": [
+          "address",
+          "name",
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "username": {
+            "maxLength": 200,
+            "minLength": 8,
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "address": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "website": {
+            "type": "string"
+          },
+          "company": {
+            "$ref": "#/components/schemas/Company"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "globalHeader": {
+        "type": "apiKey",
+        "name": "global-header-name",
+        "in": "header"
+      },
+      "globalBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}'
+```
+
+How to get your project swagger json file?
+
+After spinning up your application, visit http://localhost:8080/swagger-ui/index.html#/
+
+Click the docs link, then you will get the swagger json file.
+
+> Note: Zally requires `"api_definition_string": "openapi: 3.0.2",` in payload. Please add this into your swagger json.
+
+
 # Zally: A minimalistic, simple-to-use OpenAPI 2 and 3 linter
 
 [![Build Status](https://travis-ci.org/zalando/zally.svg?branch=master)](https://travis-ci.org/zalando/zally)
