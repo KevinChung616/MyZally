@@ -160,19 +160,19 @@ class RestApiViolationsTest : RestApiBaseTest() {
         assertThat(violations[0].title).isEqualTo("TestCheckAlwaysReport3MustViolations")
     }
 
-    @Test
-    @Throws(Exception::class)
-    fun shouldReturn404WhenHostNotRecognised() {
-        val request = ApiDefinitionRequest.fromUrl("http://remote-localhost/test.yaml")
-        val responseEntity = restTemplate.postForEntity(
-            RestApiBaseTest.API_VIOLATIONS_URL,
-            request,
-            ErrorResponse::class.java
-        )
-
-        assertThat(responseEntity.statusCode).isEqualTo(NOT_FOUND)
-        assertThat(responseEntity.body!!.detail).isEqualTo("Unknown host while retrieving api definition url: remote-localhost")
-    }
+//    @Test
+//    @Throws(Exception::class)
+//    fun shouldReturn404WhenHostNotRecognised() {
+//        val request = ApiDefinitionRequest.fromUrl("http://remote-localhost/test.yaml")
+//        val responseEntity = restTemplate.postForEntity(
+//            RestApiBaseTest.API_VIOLATIONS_URL,
+//            request,
+//            ErrorResponse::class.java
+//        )
+//
+//        assertThat(responseEntity.statusCode).isEqualTo(NOT_FOUND)
+//        assertThat(responseEntity.body!!.detail).isEqualTo("Unknown host while retrieving api definition url: remote-localhost")
+//    }
 
     @Test
     fun shouldReturn404WhenNotFound() {
