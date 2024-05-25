@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: production
+    active: dev
   datasource:
     url: jdbc:hsqldb:mem:storage;sql.syntax_pgs=true
     username: sa
@@ -18,7 +18,8 @@ spring:
             non_contextual_creation: true
   oauth2:
     resource:
-      tokenInfoUri: ${TOKEN_INFO_URI}
+#      tokenInfoUri: ${TOKEN_INFO_URI}
+      tokenInfoUri: https://auth.example.com/oauth2/tokeninfo
 
 management:
   endpoints:
