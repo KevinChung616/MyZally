@@ -1,9 +1,22 @@
-# Chung Kevin Modification
+# Chung Kevin Modification 
 
 There is a unit test error in the server section. That part is commented out.
 I have raised the issue in the original repo, waiting for response.
 
-# Steps Here
+# Steps
+1. Git clone the project.
+2. cd to zally server folder
+3. run project
+4. prepare the open-api definition string (convert to string). Key is "api_definition_string", value is the converted value.
+   ```
+   {
+    "api_definition_string": "{\"openapi\":\"3.0.1\",\"info\":{\"title\":\"My Spring 3 OPENAPI DEMO APP\",\"description\":\"This is a demo app for using swagger 3 openapi\",\"version\":\"1.0.0\",\"x-audience\":\"component-internal\",\"x-api-id\":\"23131312312\"},\"servers\":[{\"url\":\"http://localhost:8083\",\"description\":\"Generated server url\"}],\"security\":[{\"globalHeader\":[]},{\"globalBearer\":[]}],\"paths\":{\"/users/{id}\":{\"get\":{\"tags\":[\"user-controller\"],\"operationId\":\"getUserById\",\"parameters\":[{\"name\":\"id\",\"in\":\"path\",\"required\":true,\"schema\":{\"minimum\":1,\"type\":\"integer\",\"format\":\"int64\"}}],\"responses\":{\"200\":{\"description\":\"OK\",\"content\":{\"*/*\":{\"schema\":{\"$ref\":\"#/components/schemas/User\"}}}}}},\"put\":{\"tags\":[\"user-controller\"],\"operationId\":\"updateUserById\",\"parameters\":[{\"name\":\"id\",\"in\":\"path\",\"required\":true,\"schema\":{\"minimum\":1,\"type\":\"integer\",\"format\":\"int64\"}}],\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"$ref\":\"#/components/schemas/User\"}}},\"required\":true},\"responses\":{\"200\":{\"description\":\"OK\",\"content\":{\"*/*\":{\"schema\":{\"$ref\":\"#/components/schemas/User\"}}}}}},\"delete\":{\"tags\":[\"user-controller\"],\"operationId\":\"deleteUserById\",\"parameters\":[{\"name\":\"id\",\"in\":\"path\",\"required\":true,\"schema\":{\"type\":\"integer\",\"format\":\"int64\"}}],\"responses\":{\"200\":{\"description\":\"OK\",\"content\":{\"*/*\":{\"schema\":{\"type\":\"boolean\"}}}}}}},\"/users\":{\"get\":{\"tags\":[\"user-controller\"],\"operationId\":\"getUsers\",\"responses\":{\"200\":{\"description\":\"OK\",\"content\":{\"*/*\":{\"schema\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/components/schemas/User\"}}}}}}},\"post\":{\"tags\":[\"user-controller\"],\"operationId\":\"createNewUser\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"$ref\":\"#/components/schemas/User\"}}},\"required\":true},\"responses\":{\"200\":{\"description\":\"OK\",\"content\":{\"*/*\":{\"schema\":{\"$ref\":\"#/components/schemas/User\"}}}}}}}},\"components\":{\"schemas\":{\"Address\":{\"type\":\"object\",\"properties\":{\"street\":{\"type\":\"string\"},\"suite\":{\"type\":\"string\"},\"city\":{\"type\":\"string\"},\"zipcode\":{\"type\":\"string\"},\"geo\":{\"$ref\":\"#/components/schemas/Geo\"}}},\"Company\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"catchPhrase\":{\"type\":\"string\"},\"bs\":{\"type\":\"string\"}}},\"Geo\":{\"type\":\"object\",\"properties\":{\"lat\":{\"type\":\"string\"},\"lng\":{\"type\":\"string\"}}},\"User\":{\"required\":[\"address\",\"name\",\"username\"],\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"integer\",\"format\":\"int64\"},\"name\":{\"type\":\"string\"},\"username\":{\"maxLength\":200,\"minLength\":8,\"type\":\"string\"},\"email\":{\"type\":\"string\"},\"address\":{\"$ref\":\"#/components/schemas/Address\"},\"phone\":{\"type\":\"string\"},\"website\":{\"type\":\"string\"},\"company\":{\"$ref\":\"#/components/schemas/Company\"}}}},\"securitySchemes\":{\"globalHeader\":{\"type\":\"apiKey\",\"name\":\"global-header-name\",\"in\":\"header\"},\"globalBearer\":{\"type\":\"http\",\"scheme\":\"bearer\"}}}}"
+}
+   ```
+
+
+
+# Steps Here (Obselete)
 Run following command.
 ```bash
 docker compose up -d
