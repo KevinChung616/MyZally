@@ -1,7 +1,9 @@
 # Chung Kevin Modification 
 
 There is a unit test error in the server section. That part is commented out.
-I have raised the issue in the original repo, waiting for response.
+I have raised the issue in the original repo, waiting for a response.
+
+In addition, change the env to dev to bypass authentication.
 
 # Steps
 1. Git clone the project.
